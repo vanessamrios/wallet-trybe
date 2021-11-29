@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense } from '../actions';
+import { addExpenseAndFetchExchangeRates } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -102,7 +102,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveExpense: (expense) => dispatch(addExpense(expense)),
+  saveExpense: (expense) => dispatch(addExpenseAndFetchExchangeRates(expense)),
 });
 
 Wallet.propTypes = {
