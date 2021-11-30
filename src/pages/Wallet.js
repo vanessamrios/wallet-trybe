@@ -12,9 +12,20 @@ class Wallet extends React.Component {
       currency: '',
       method: '',
       tag: '',
+      currencies: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadingCurrencies();
+  }
+
+  async loadingCurrencies() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    this.setState({ currencies: Object.keys(data) });
   }
 
   handleChange({ target }) {
@@ -47,7 +58,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
+    const { value, description, currency, method, tag, currencies } = this.state;
     const { userEmail } = this.props;
     return (
       <div>
@@ -71,13 +82,17 @@ class Wallet extends React.Component {
             name="description"
             onChange={ this.handleChange }
           />
-          <input
-            data-testid="currency-input"
-            type="text"
-            value={ currency }
-            name="currency"
-            onChange={ this.handleChange }
-          />
+          <label htmlFor="currency-input">
+            Moeda:
+            <select id="currency-input" data-testid="currency-input" value={ currency } name="moeda" onChange={ this.handleChange }>
+              {currencies.map((actualCurrency, index) => {
+                if (actualCurrency === 'USDT') {
+                  return null;
+                }
+                return <option data-testid={ actualCurrency } key={ index } value={ actualCurrency }>{ actualCurrency }</option>
+              })}
+            </select>
+          </label>
           <select data-testid="method-input" value={ method } name="method" onChange={ this.handleChange }>
             <option value="dinheiro">Dinheiro</option>
             <option value="credito">Cartão de crédito</option>
