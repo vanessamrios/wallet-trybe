@@ -48,6 +48,14 @@ class Wallet extends React.Component {
       tag,
     };
     saveExpense(expense);
+    this.setState({
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      currencies: [],
+    });
   }
 
   // função totalExpenses encontrada no stack overflow https://stackoverflow.com/questions/5732043/how-to-call-reduce-on-an-array-of-objects-to-sum-their-properties
