@@ -25,15 +25,15 @@ class Table extends React.Component {
           <tbody>
             {expenses.map((expense, index) => (
               <tr key={ index }>
-                <th>{ expense.description }</th>
-                <th>{ expense.tag }</th>
-                <th>{ expense.method }</th>
-                <th>{ expense.value }</th>
-                <th>{ expense.currency }</th>
-                <th>ask</th>
-                <th>valor convertido</th>
-                <th>Real</th>
-                <th>Botão</th>
+                <td>{ expense.description }</td>
+                <td>{ expense.tag }</td>
+                <td>{ expense.method }</td>
+                <td>{ expense.value }</td>
+                <td>{ expense.currency }</td>
+                <td>ask</td>
+                <td>valor convertido</td>
+                <td>Real</td>
+                <td>Botão</td>
               </tr>
             ))}
           </tbody>
