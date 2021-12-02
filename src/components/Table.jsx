@@ -4,6 +4,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Table extends React.Component {
+  usedExchange(expense) {
+    return Number(expense.exchangeRates[expense.currency].ask).toFixed(2);
+  }
+
+  convertedValue(expense) {
+    const value = Number(expense.value);
+    const usedExchange = Number(expense.exchangeRates[expense.currency].ask);
+    const result = (value * usedExchange).toFixed(2);
+    console.log(result);
+    return result;
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -30,8 +42,8 @@ class Table extends React.Component {
                 <td>{ expense.method }</td>
                 <td>{ expense.value }</td>
                 <td>{ expense.exchangeRates[expense.currency].name }</td>
-                <td>ask</td>
-                <td>valor convertido</td>
+                <td>{ this.usedExchange(expense) }</td>
+                <td>{ this.convertedValue(expense) }</td>
                 <td>Real</td>
                 <td>Botão</td>
               </tr>
