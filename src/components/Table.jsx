@@ -29,7 +29,7 @@ class Table extends React.Component {
                 <td>{ expense.tag }</td>
                 <td>{ expense.method }</td>
                 <td>{ expense.value }</td>
-                <td>{ expense.currency }</td>
+                <td>{ expense.exchangeRates[expense.currency].name }</td>
                 <td>ask</td>
                 <td>valor convertido</td>
                 <td>Real</td>
