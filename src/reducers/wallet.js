@@ -1,4 +1,4 @@
-import { ADD_EXPENSE } from '../actions';
+import { ADD_EXPENSE, DELETE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -15,6 +15,11 @@ function wallet(state = INITIAL_STATE, action) {
         ...action.expense,
         id: state.expenses.length,
       }],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
     };
   default:
     return state;
