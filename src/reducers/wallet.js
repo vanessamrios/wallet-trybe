@@ -19,7 +19,7 @@ function wallet(state = INITIAL_STATE, action) {
   case DELETE_EXPENSE:
     return {
       ...state,
-      expenses: state.expenses.filter((expense) => expense.id !== action.id),
+      expenses: state.expenses.filter((expense) => expense.id !== action.id), // referência: https://www.ti-enxame.com/pt/javascript/excluir-um-item-do-estado-redux/826094201/
     };
   default:
     return state;

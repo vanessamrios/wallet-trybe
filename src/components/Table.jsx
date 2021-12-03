@@ -35,8 +35,8 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {expenses.map((expense, index) => (
-              <tr key={ index }>
+            {expenses.map((expense) => (
+              <tr key={ expense.id }>
                 <td>{ expense.description }</td>
                 <td>{ expense.tag }</td>
                 <td>{ expense.method }</td>
