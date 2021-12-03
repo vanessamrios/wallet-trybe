@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class Table extends React.Component {
   usedExchange(expense) {
@@ -17,7 +17,7 @@ class Table extends React.Component {
   }
 
   renderExpense(expense) {
-    const { removeExpense } = this.props;
+    const { removeExpense, edit } = this.props;
     return (
       <tr key={ expense.id }>
         <td>{ expense.description }</td>
@@ -32,7 +32,7 @@ class Table extends React.Component {
           <button
             type="button"
             data-testid="edit-btn"
-            onClick={ () => removeExpense(expense.id) }
+            onClick={ () => edit(expense.id) }
           >
             Editar despesa
           </button>
@@ -45,7 +45,7 @@ class Table extends React.Component {
           </button>
         </td>
       </tr>
-    )
+    );
   }
 
   render() {
@@ -80,6 +80,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (id) => dispatch(deleteExpense(id)),
+  edit: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
@@ -87,4 +88,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 Table.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
   removeExpense: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };

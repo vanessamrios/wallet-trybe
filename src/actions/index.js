@@ -1,6 +1,7 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -25,5 +26,10 @@ export const addExpenseAndFetchExchangeRates = (expense) => async (dispatch) => 
 
 export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
+  id,
+});
+
+export const editExpense = (id) => ({
+  type: EDIT_EXPENSE,
   id,
 });

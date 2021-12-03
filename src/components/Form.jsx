@@ -23,6 +23,16 @@ class Form extends React.Component {
     this.loadingCurrencies();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.editExpense) {
+      return {
+        ...state,
+        value: props.editExpense.value,
+      };
+    }
+    return state;
+  }
+
   async loadingCurrencies() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
@@ -143,8 +153,8 @@ class Form extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
-  expenses: state.wallet.expenses,
+  editExpense: state.wallet.expenses
+    .find((expense) => expense.id === state.wallet.idToEdit),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -153,6 +163,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   saveExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.shape.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
