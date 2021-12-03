@@ -16,8 +16,40 @@ class Table extends React.Component {
     return result;
   }
 
+  renderExpense(expense) {
+    const { removeExpense } = this.props;
+    return (
+      <tr key={ expense.id }>
+        <td>{ expense.description }</td>
+        <td>{ expense.tag }</td>
+        <td>{ expense.method }</td>
+        <td>{ expense.value }</td>
+        <td>{ expense.exchangeRates[expense.currency].name }</td>
+        <td>{ this.usedExchange(expense) }</td>
+        <td>{ this.convertedValue(expense) }</td>
+        <td>Real</td>
+        <td>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => removeExpense(expense.id) }
+          >
+            Editar despesa
+          </button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => removeExpense(expense.id) }
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    )
+  }
+
   render() {
-    const { expenses, removeExpense } = this.props;
+    const { expenses } = this.props;
     return (
       <div>
         <table border="1">
@@ -35,27 +67,7 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {expenses.map((expense) => (
-              <tr key={ expense.id }>
-                <td>{ expense.description }</td>
-                <td>{ expense.tag }</td>
-                <td>{ expense.method }</td>
-                <td>{ expense.value }</td>
-                <td>{ expense.exchangeRates[expense.currency].name }</td>
-                <td>{ this.usedExchange(expense) }</td>
-                <td>{ this.convertedValue(expense) }</td>
-                <td>Real</td>
-                <td>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ () => removeExpense(expense.id) }
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))}
+            { expenses.map((expense) => this.renderExpense(expense)) }
           </tbody>
         </table>
       </div>
