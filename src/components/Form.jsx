@@ -24,24 +24,43 @@ class Form extends React.Component {
     this.loadingCurrencies();
   }
 
+  componentDidUpdate(prevProps) {
+    const { expenseToEdit } = this.props;
+    if (expenseToEdit !== null
+      && (prevProps.expenseToEdit == null || expenseToEdit.id !== prevProps.expenseToEdit.id)) {
+      this.loadingExpenseToEdit(expenseToEdit);
+    }
+  }
+
+  loadingExpenseToEdit(expenseToEdit) {
+    this.setState({
+      id: expenseToEdit.id,
+      value: expenseToEdit.value,
+      description: expenseToEdit.description,
+      currency: expenseToEdit.currency,
+      method: expenseToEdit.method,
+      tag: expenseToEdit.tag,
+    });
+  }
+
   // A documentação sugere o componentDidUpdate(), mas não consegui usar o setState() no didUpdate e por isso decidi usar getDerivedStateFromProps()
   // Esse metodo do React atualiza o estado interno a partir de mudanças nas props (que foram alteradas pelo estado global, através do mapStateToProps)
   // referência: documentação (https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
-  static getDerivedStateFromProps(props, state) {
-    if (props.expenseToEdit) {
-      console.log('é isso mesmo');
-      return {
-        ...state,
-        id: props.expenseToEdit.id,
-        value: props.expenseToEdit.value,
-        description: props.expenseToEdit.description,
-        currency: props.expenseToEdit.currency,
-        method: props.expenseToEdit.method,
-        tag: props.expenseToEdit.tag,
-      };
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.expenseToEdit) {
+  //     console.log('é isso mesmo');
+  //     return {
+  //       ...state,
+  //       id: props.expenseToEdit.id,
+  //       value: props.expenseToEdit.value,
+  //       description: props.expenseToEdit.description,
+  //       currency: props.expenseToEdit.currency,
+  //       method: props.expenseToEdit.method,
+  //       tag: props.expenseToEdit.tag,
+  //     };
+  //   }
+  //   return null;
+  // }
 
   async loadingCurrencies() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -72,6 +91,7 @@ class Form extends React.Component {
     };
     saveExpense(expense);
     this.setState({
+      id: -1,
       value: '',
       description: '',
       currency: 'USD',
