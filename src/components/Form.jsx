@@ -15,6 +15,7 @@ class Form extends React.Component {
       method: '',
       tag: '',
       currencies: [],
+      exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -24,10 +25,11 @@ class Form extends React.Component {
     this.loadingCurrencies();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const { expenseToEdit } = this.props;
-    if (expenseToEdit !== null
-      && (prevProps.expenseToEdit == null || expenseToEdit.id !== prevProps.expenseToEdit.id)) {
+    const { id } = this.state;
+
+    if (expenseToEdit !== null && id !== expenseToEdit.id) {
       this.loadingExpenseToEdit(expenseToEdit);
     }
   }
@@ -40,27 +42,9 @@ class Form extends React.Component {
       currency: expenseToEdit.currency,
       method: expenseToEdit.method,
       tag: expenseToEdit.tag,
+      exchangeRates: expenseToEdit.exchangeRates,
     });
   }
-
-  // A documentação sugere o componentDidUpdate(), mas não consegui usar o setState() no didUpdate e por isso decidi usar getDerivedStateFromProps()
-  // Esse metodo do React atualiza o estado interno a partir de mudanças nas props (que foram alteradas pelo estado global, através do mapStateToProps)
-  // referência: documentação (https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.expenseToEdit) {
-  //     console.log('é isso mesmo');
-  //     return {
-  //       ...state,
-  //       id: props.expenseToEdit.id,
-  //       value: props.expenseToEdit.value,
-  //       description: props.expenseToEdit.description,
-  //       currency: props.expenseToEdit.currency,
-  //       method: props.expenseToEdit.method,
-  //       tag: props.expenseToEdit.tag,
-  //     };
-  //   }
-  //   return null;
-  // }
 
   async loadingCurrencies() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -81,7 +65,7 @@ class Form extends React.Component {
 
   handleClick() {
     const { saveExpense } = this.props;
-    const { id, value, description, currency, method, tag } = this.state;
+    const { id, value, description, currency, method, tag, exchangeRates } = this.state;
     const expense = {
       id,
       value,
@@ -89,6 +73,7 @@ class Form extends React.Component {
       currency,
       method,
       tag,
+      exchangeRates,
     };
     saveExpense(expense);
     this.setState({
