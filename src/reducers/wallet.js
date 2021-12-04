@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
+import { ADD_EXPENSE, CHANGE_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -26,6 +26,13 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       idToEdit: action.id,
+    };
+  case CHANGE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses
+        .map((expense) => (expense.id === action.expense.id ? action.expense : expense)),
+      idToEdit: -1,
     };
   default:
     return state;

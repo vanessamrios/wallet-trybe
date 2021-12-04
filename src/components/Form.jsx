@@ -81,8 +81,9 @@ class Form extends React.Component {
 
   handleClick() {
     const { saveExpense } = this.props;
-    const { value, description, currency, method, tag } = this.state;
+    const { id, value, description, currency, method, tag } = this.state;
     const expense = {
+      id,
       value,
       description,
       currency,
