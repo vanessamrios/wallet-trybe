@@ -1,4 +1,10 @@
-import { ADD_EXPENSE, CHANGE_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
+import {
+  ADD_EXPENSE,
+  CHANGE_EXPENSE,
+  DELETE_EXPENSE,
+  EDIT_EXPENSE,
+  LOAD_CURRENCIES,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -33,6 +39,11 @@ function wallet(state = INITIAL_STATE, action) {
       expenses: state.expenses
         .map((expense) => (expense.id === action.expense.id ? action.expense : expense)),
       idToEdit: -1,
+    };
+  case LOAD_CURRENCIES:
+    return {
+      ...state,
+      currencies: action.currencies.filter((currency) => currency !== 'USDT'),
     };
   default:
     return state;

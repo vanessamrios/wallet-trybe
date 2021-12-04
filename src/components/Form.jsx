@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpenseAndFetchExchangeRates } from '../actions';
+import { addExpenseAndFetchExchangeRates, fetchCurrencies } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -14,7 +14,6 @@ class Form extends React.Component {
       currency: '',
       method: '',
       tag: '',
-      currencies: [],
       exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +21,8 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    this.loadingCurrencies();
+    const { loadingCurrencies } = this.props;
+    loadingCurrencies();
   }
 
   componentDidUpdate() {
@@ -44,12 +44,6 @@ class Form extends React.Component {
       tag: expenseToEdit.tag,
       exchangeRates: expenseToEdit.exchangeRates,
     });
-  }
-
-  async loadingCurrencies() {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    this.setState({ currencies: Object.keys(data) });
   }
 
   // função handleChange retirada do course
@@ -100,7 +94,8 @@ class Form extends React.Component {
   }
 
   renderComboboxCurrency() {
-    const { currency, currencies } = this.state;
+    const { currency } = this.state;
+    const { currencies } = this.props;
     return (
       <label htmlFor="currency">
         Moeda
@@ -111,20 +106,15 @@ class Form extends React.Component {
           name="currency"
           onChange={ this.handleChange }
         >
-          {currencies.map((actualCurrency, index) => {
-            if (actualCurrency === 'USDT') {
-              return null;
-            }
-            return (
-              <option
-                data-testid={ actualCurrency }
-                key={ index }
-                value={ actualCurrency }
-              >
-                { actualCurrency }
-              </option>
-            );
-          })}
+          {currencies.map((actualCurrency, index) => (
+            <option
+              data-testid={ actualCurrency }
+              key={ index }
+              value={ actualCurrency }
+            >
+              { actualCurrency }
+            </option>
+          ))}
         </select>
       </label>
     );
@@ -183,15 +173,19 @@ class Form extends React.Component {
 const mapStateToProps = (state) => ({
   expenseToEdit: state.wallet.expenses
     .find((expense) => expense.id === state.wallet.idToEdit),
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpense: (expense) => dispatch(addExpenseAndFetchExchangeRates(expense)),
+  loadingCurrencies: () => dispatch(fetchCurrencies()),
 });
 
 Form.propTypes = {
   saveExpense: PropTypes.func.isRequired,
+  loadingCurrencies: PropTypes.func.isRequired,
   expenseToEdit: PropTypes.shape(Object),
+  currencies: PropTypes.arrayOf(String).isRequired,
 };
 
 Form.defaultProps = {
