@@ -3,12 +3,13 @@ import '../App.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpenseAndFetchExchangeRates, fetchCurrencies } from '../actions';
+import { INITIAL_ID } from '../actions/constants';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: -1,
+      id: INITIAL_ID,
       value: '',
       description: '',
       currency: '',
@@ -71,7 +72,7 @@ class Form extends React.Component {
     };
     saveExpense(expense);
     this.setState({
-      id: -1,
+      id: INITIAL_ID,
       value: '',
       description: '',
       currency: 'USD',

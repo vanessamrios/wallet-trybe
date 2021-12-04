@@ -5,11 +5,12 @@ import {
   EDIT_EXPENSE,
   LOAD_CURRENCIES,
 } from '../actions';
+import { INITIAL_ID } from '../actions/constants';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  idToEdit: -1,
+  idToEdit: INITIAL_ID,
 };
 
 // como adicionar um novo objeto no array. sintaxe para linha 14 encotrada em: https://stackoverflow.com/questions/40911194/how-do-i-add-an-element-to-array-in-reducer-of-react-native-redux
@@ -38,7 +39,7 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       expenses: state.expenses
         .map((expense) => (expense.id === action.expense.id ? action.expense : expense)),
-      idToEdit: -1,
+      idToEdit: INITIAL_ID,
     };
   case LOAD_CURRENCIES:
     return {
