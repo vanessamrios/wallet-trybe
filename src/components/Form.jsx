@@ -8,6 +8,7 @@ class Form extends React.Component {
   constructor() {
     super();
     this.state = {
+      id: -1,
       value: '',
       description: '',
       currency: '',
@@ -23,14 +24,23 @@ class Form extends React.Component {
     this.loadingCurrencies();
   }
 
+  // A documentação sugere o componentDidUpdate(), mas não consegui usar o setState() no didUpdate e por isso decidi usar getDerivedStateFromProps()
+  // Esse metodo do React atualiza o estado interno a partir de mudanças nas props (que foram alteradas pelo estado global, através do mapStateToProps)
+  // referência: documentação (https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
   static getDerivedStateFromProps(props, state) {
-    if (props.editExpense) {
+    if (props.expenseToEdit) {
+      console.log('é isso mesmo');
       return {
         ...state,
-        value: props.editExpense.value,
+        id: props.expenseToEdit.id,
+        value: props.expenseToEdit.value,
+        description: props.expenseToEdit.description,
+        currency: props.expenseToEdit.currency,
+        method: props.expenseToEdit.method,
+        tag: props.expenseToEdit.tag,
       };
     }
-    return state;
+    return null;
   }
 
   async loadingCurrencies() {
@@ -114,6 +124,18 @@ class Form extends React.Component {
     );
   }
 
+  renderButton() {
+    const { expenseToEdit } = this.props;
+    if (expenseToEdit) {
+      return (
+        <button type="button" onClick={ this.handleClick }>Editar despesa</button>
+      );
+    }
+    return (
+      <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+    );
+  }
+
   render() {
     const { value, description, method, tag } = this.state;
     return (
@@ -146,14 +168,14 @@ class Form extends React.Component {
             <option value="Transporte">Transporte</option>
             <option value="Saúde">Saúde</option>
           </select>
-          <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+          {this.renderButton()}
         </form>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
-  editExpense: state.wallet.expenses
+  expenseToEdit: state.wallet.expenses
     .find((expense) => expense.id === state.wallet.idToEdit),
 });
 
@@ -163,7 +185,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   saveExpense: PropTypes.func.isRequired,
-  editExpense: PropTypes.shape.isRequired,
+  expenseToEdit: PropTypes.shape(Object),
+};
+
+Form.defaultProps = {
+  expenseToEdit: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
