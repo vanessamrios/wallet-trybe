@@ -1,5 +1,7 @@
 
-# Projeto de Wallet!
+# Wallet: Projeto de carteira de controle de gastos!
+
+https://wallet-trybe.vercel.app/
 
 - Este projeto, realizado durante o modulo de Frontend do curso de desenvolvimento de software da Trybe, implementa uma carteira de controle de gastos com conversor de moedas. Ao utilizar essa aplicação um usuário, **após fazer login**, deverá ser capaz de:
   - Adicionar, remover e editar um gasto;
