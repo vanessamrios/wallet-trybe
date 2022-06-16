@@ -37,10 +37,17 @@
 
 ## Referência de comportamento
 -Login
+
   ![image](login.gif)
+  
 -Carteia
+
   ![image](carteira.gif)
+  
 -Excluir
+
   ![image](btnExcluir.gif)
+  
 -Editar
+
   ![image](btnEditar.gif)
