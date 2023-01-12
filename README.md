@@ -1,43 +1,45 @@
 
-# Wallet: Projeto de carteira de controle de gastos!
+# Wallet Project :dollar:
+
 
 https://wallet-trybe.vercel.app/
 
-- Este projeto, realizado durante o modulo de Frontend do curso de desenvolvimento de software da Trybe, implementa uma carteira de controle de gastos com conversor de moedas. Ao utilizar essa aplicação um usuário, **após fazer login**, deverá ser capaz de:
-  - Adicionar, remover e editar um gasto;
-  - Visualizar uma tabelas com seus gastos;
-  - Visualizar o total de gastos convertidos para uma moeda de escolha;
+- This project, carried out during the Frontend module of Trybe's software development course, implements a tool for controlling expenses with a currency converter. When using this application, a user, **after logging in**, should be able to:
 
-- A aplicação foi desenvolvida em `React` e usa `Redux` como ferramenta de **manipulação de estado**.
+   - Add, remove and edit an expense;
+   - View a table with your expenses;
+   - View the total expenses converted to a currency of choice;
 
-# Tecnologias utilizadas
+- The application was developed in `React` and it uses `Redux` as a **state management** tool.
 
-- Através dessa aplicação, será possível realizar as operações básicas de **criação e manipulação de um estado de redux**.
+# Technologies used:
 
-- Neste projeto foram praticadas habilidades de:
+- React and Redux
 
-  * Consumir e manipular dados diretamente de uma `API`
+- In this project, the following skills were practiced:
 
-  * Criar um **store** no `Redux` em aplicações `React`
+   * Consume and manipulate data directly from an `API`
 
-  * Criar **reducers** no `Redux` em aplicações `React`
+   * Create a **Redux Store** in `React` apps
 
-  * Criar **actions** no `Redux` em aplicações `React`
+   * Create **Redux Reducers** in `React` apps
 
-  * Criar **dispatchers** no `Redux` em aplicações `React`
+   * Create **Redux Actions** in `React` apps
 
-  * **Conectar** `Redux` aos componentes `React`
+   * Create **Redux Dispatchers** in `Redux` in `React` apps
 
-  * Criar **actions assíncronas** na sua aplicação `React` que faz uso de `Redux`.
+   * **Connect** `Redux` to `React` components
+
+   * Create **asynchronous actions** in your `React` application that makes use of `Redux`.
 
 ---
 
-## Executando a aplicação
+## Running the application
 
-- Abra o link acima em uma aba do seu navegador
+- Open the above link in your browser tab
 
 
-## Referência de comportamento
+## Behavior Reference
 -Login
 
   ![image](login.gif)
