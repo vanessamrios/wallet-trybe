@@ -12,7 +12,7 @@ https://wallet-trybe.vercel.app/
 
 - The application was developed in `React` and it uses `Redux` as a **state management** tool.
 
-# Technologies used:
+## Technologies used:
 
 - React and Redux
 
